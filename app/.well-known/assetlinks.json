@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "de.snkmo.depictit.twa",
+                   "sha256_cert_fingerprints": ["31:24:91:4A:58:29:B0:27:35:BD:FA:12:A2:30:B7:65:A8:40:0B:42:67:A5:10:0D:7F:10:28:1D:52:CB:64:5A"] }
+    }]

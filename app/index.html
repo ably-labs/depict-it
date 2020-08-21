@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Depict-it</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Description" content="The hilarious online game of draw and describe.">
+  <meta name="theme-color" content="#17B5E9">
+  <link rel="apple-touch-icon" href="/assets/icons-192.png">
+
+  <script src="/js/ably.min-1.js" defer></script>
+  <script src="/js/vue.min.js" defer></script>
+  <script src="/index.js" type="module"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel='manifest' href='/manifest.json'>
+  <link rel="icon" type="image/png" href="/assets/icons/favicon.ico">
+  <meta property="og:title" content="Depict-It" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="A hilarious online game of draw and describe." />
+  <meta property="og:url" content="https://depictit.snkmo.de" />
+  <meta property="og:image" content="https://depictit.snkmo.de/assets/fb-og.png" />
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:alt"
+    content="Depit-it logo - a white bubble with black outline in a sketchy style with 'Depict-it' in a hand written font." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Depict-It" />
+  <meta name="twitter:description" content="A hilarious online game of draw and describe." />
+  <meta name="twitter:image" content="https://depictit.snkmo.de/assets/tw-og.png" />
+</head>
+
+<body>
+  <main id="app">
+    <div class="debug">
+      {{ state?.status == undefined ? "disconnected" : state?.status }}
+    </div>
+
+    <header v-bind:class="{ hide: state?.lastInstruction?.type == 'drawing-request'}">
+      <h1>Depict-it</h1>
+      <input class="rules-checkbox" id="rules" type="checkbox" />
+      <label for="rules" class="rules"></label>
+      <div class="rules-text">
+        <div class="rules-text-container">
+          <h2>How to play Depict-It</h2>
+          <p>Depict-It is a hilarious cross between Pictionary and Chinese Whispers.</p>
+          <p>Ideally for 4-8 players, but can be played with more!</p>
+          <p>Each player is given a prompt card which they must attempt to illustrate on the canvas provided.
+            Their drawings will be passed to another player to describe in text, and that text passed to another player
+            to draw and so on until it has passed through the whole group.
+          </p>
+          <p>At game end, the progression of the prompt will be shown to all players, and they can vote on which they
+            think is the most funny, clever or just downright nonsensical.</p>
+          <p>The winner is the player with the most votes at the end of all the voting rounds.</p>
+          <img class="rules-img" src="./assets/rules.png" alt="description of how to play" />
+
+          <h3>Game Play</h3>
+          <ol>
+            <li>When the game starts you will be shown a drawing prompt.</li>
+            <li>As best you can in the time allowed, try to draw on the white tile what your prompt describes. When you
+              are finished drawing, press the "I'm finished button"</li>
+            <li>In the next round, your drawing will be passed to another player in your group and you will receive a
+              drawing of theirs. Feel free to admire it.</li>
+            <li>In the text box provided, type in a description of the drawing you're looking at, you can be as
+              expressive as you like.</li>
+            <li>When you are done click "Caption this" and your description will be sent to another player to draw.</li>
+            <li>In the next round you'll be given a description written by another player. Try to draw what they've
+              described.</li>
+            <li>The game will continue until each prompt has passed back round to its original illustrator. Once this
+              happens the prompt progressions will be revealed.</li>
+            <li>Take your time to laugh at your friend's drawing skills and perhaps even share a screenshot of your
+              favourites.</li>
+            <li>Vote for the card in each progression that you think is the best. You can define your own reasoning for
+              this.</li>
+            <li>The winner is the player with the most votes, but in the end, <b>aren't we all winners?!</b></li>
+          </ol>
+        </div>
+      </div>
+    </header>
+
+
+
+    <div v-if="!joinedOrHosting" class="join-container">
+      <create-game-form v-on:create="host" v-on:join="join"></create-game-form>
+    </div>
+    <div v-else id="activeGame" class="game-info">
+      <div class="game-lobby" v-if="gameCanBeStarted">
+        <invite-link :game-id="gameId"></invite-link>
+        <connected-players-summary :state="transmittedServerState"></connected-players-summary>
+        <ready-or-waiting-prompt :is-host="isHost" :state="transmittedServerState" v-on:startgame="startGame">
+        </ready-or-waiting-prompt>
+      </div>
+      <div v-if="!gameCanBeStarted && !state?.lastInstruction">
+        <loader></loader>
+      </div>
+
+      <timer-bar v-if="state?.lastInstruction?.timeout != null" :countdown="state?.lastInstruction?.timeout">
+      </timer-bar>
+
+      <div v-if="state?.lastInstruction" class="playfield">
+        <playfield-wait-for-others :state="state"></playfield-wait-for-others>
+
+        <playfield-drawing :state="state" :client="depictItClient"></playfield-drawing>
+        <playfield-caption :state="state" :client="depictItClient"></playfield-caption>
+        <playfield-pick-one :state="state" :client="depictItClient" :is-host="isHost"></playfield-pick-one>
+
+        <playfield-show-scores :state="state" :is-host="isHost" v-on:nextround="nextRound"></playfield-show-scores>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    Powered by <a href="https://ably.com" class="ably">Ably</a>
+  </footer>
+
+  <script type="text/javascript">
+    !function (a, b, c, d, e, f, g, h) {
+      a.RaygunObject = e, a[e] = a[e] || function () {
+        (a[e].o = a[e].o || []).push(arguments)
+      }, f = b.createElement(c), g = b.getElementsByTagName(c)[0],
+        f.async = 1, f.src = d, g.parentNode.insertBefore(f, g), h = a.onerror, a.onerror = function (b, c, d, f, g) {
+          h && h(b, c, d, f, g), g || (g = new Error(b)), a[e].q = a[e].q || [], a[e].q.push({
+            e: g
+          })
+        }
+    }(window, document, "script", "//cdn.raygun.io/raygun4js/raygun.min.js", "rg4js");
+  </script>
+  <script type="text/javascript">
+    rg4js('apiKey', 'qmtHmhIhnbYHbCDi2xqXLw');
+    rg4js('enableCrashReporting', true);
+    rg4js('enablePulse', true);
+  </script>
+
+</body>
+
+</html>

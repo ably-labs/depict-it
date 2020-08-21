@@ -1,0 +1,44 @@
+{
+    "dir": "ltr",
+    "lang": "English",
+    "name": "Depict-It",
+    "short_name": "Depict-It",
+    "scope": "/",
+    "display": "standalone",
+    "start_url": "/",
+    "background_color": "#17b5e9",
+    "theme_color": "#17b5e9",
+    "description": "The hilarious online game of draw and describe",
+    "orientation": "portrait",
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "./assets/icons/512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "./assets/icons/192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./assets/icons/180x180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "./assets/icons/32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "./assets/icons/16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        }
+    ],
+    "url": "https://depictit.snkmo.de",
+    "screenshots": []
+}

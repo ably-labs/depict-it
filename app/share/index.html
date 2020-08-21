@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Depict-it Sharing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="The hilarious online game of draw and describe.">
+    <meta name="theme-color" content="#17B5E9">
+
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.ico">
+</head>
+<body class="share">
+    <p id="status" class="section-heading"></p>
+
+    <script>
+        (async function () {
+            const statusElement = document.getElementById("status");
+            var loader = document.createElement("img");
+                loader.setAttribute("src", "../assets/loading.gif");
+                loader.setAttribute("alt", "loading");
+                loader.setAttribute("class", "share-loading");
+            try {
+                const stackAsJson = localStorage.getItem("share");
+                const stack = JSON.parse(stackAsJson);
+
+                if (stack == null) {
+                    statusElement.innerText = "An error occured loading the stack to share.";
+                    return;
+                }
+
+                statusElement.innerText = "Generating GIF to share...";
+                statusElement.append(loader);
+
+                const response = await fetch("/api/tweetGif", { method: "POST", body: JSON.stringify({ stack }) });
+                const responseBody = await response.json();
+
+                window.location = `https://twitter.com/intent/retweet?tweet_id=${responseBody.id_str}&related=DepictItGame`;
+            }
+            catch {
+                statusElement.innerText = "Sorry, there was an error sharing your game stack.";
+            }
+            finally {
+                localStorage.removeItem("share");
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

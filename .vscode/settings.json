@@ -1,0 +1,16 @@
+{
+    "azureFunctions.deploySubpath": "api",
+    "azureFunctions.postDeployTask": "npm install",
+    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.projectRuntime": "~3",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "npm prune",
+    "liveServer.settings.proxy": {
+      "enable": true,
+      "baseUri": "/api",
+      "proxyUri": "http://127.0.0.1:7071/api"
+    },
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "afterDelay",
+    "debug.allowBreakpointsEverywhere": true
+  }

@@ -1,0 +1,20 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "scripts": {
+    "prestart": "func extensions install",
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "author": "",
+  "dependencies": {
+    "@azure/identity": "^1.0.3",
+    "@azure/storage-blob": "^12.2.0-preview.1",
+    "ably": "^1.1.25",
+    "gifwrap": "^0.9.2",
+    "jimp": "^0.16.0",
+    "node-fetch": "^2.6.0",
+    "twitter": "^1.7.1"
+  }
+}
