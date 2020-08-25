@@ -479,11 +479,11 @@ button:hover,
   font-weight: bolder;
 }
 
-.footer {
+.ably-text {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 10px;
   text-align: right;
 }
 
@@ -546,6 +546,10 @@ button:hover,
   display: block;
   max-width: 300px;
   margin: 1em auto;
+}
+
+.github {
+  display: none;
 }
 
 .textarea {
@@ -707,12 +711,18 @@ button:hover,
   }
 
   .footer {
+    display: flex;
+    justify-items: center;
+  }
+
+  .ably-text {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
     position: fixed;
     bottom: 0;
     right: 0;
+    margin: 20px;
     z-index: 1;
   }
 
@@ -720,6 +730,24 @@ button:hover,
     width: 160px;
     height: 70px;
     background-size: 160px;
+  }
+
+  .github {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding-left: 55px;
+    font-size: 1.1em;
+    text-decoration: none;
+    color: #333;
+    background: url(./assets/github.svg) no-repeat left;
+    background-size: 45px;
+  }
+  
+  .github:hover {
+    background: url(./assets/github_hover.svg) no-repeat left;
+    background-size: 45px;
   }
 }
 
