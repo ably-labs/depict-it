@@ -291,6 +291,14 @@ button:hover,
   border: 5px solid black;
 }
 
+.palette .active, .palette div:hover {
+  box-shadow: 0px 0px 10px 3px rgba(255,255,255, 1);
+}
+
+.palette div:hover {
+  cursor: pointer;
+}
+
 .image-frame {
   width: 100%;
   max-width: 400px;
@@ -521,6 +529,10 @@ button:hover,
   height: 100%;
   width: 100%;
   place-items: center;
+}
+
+.card:hover {
+  cursor: pointer;
 }
 
 .card:hover .author {

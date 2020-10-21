@@ -43,11 +43,20 @@ export class DrawableCanvasElement {
 
     registerPaletteElements(paletteContainer) {
         const palette = document.getElementById(paletteContainer);
-        for (let colour of palette.children) {
-            colour.addEventListener('click', (event) => {
+
+        palette.addEventListener('click', (event) => {
+            if (event.target.id !== paletteContainer) {
+                for (let colour of palette.children) {
+                   colour.classList.remove('active');
+                }
+
+                event.target.classList.add('active');
                 this.setActiveColour(event.target.style["background-color"]);
-            });
-        }
+            }
+        });
+
+        palette.children[0].classList.add('active');
+
         return this;
     }
 
