@@ -5,7 +5,6 @@ var filesToCache = [
     '/style.css',
     "/manifest.json",
     '/assets/logo.svg',
-    '/assets/ably.svg',
     "/assets/icons/favicon.ico",
 ];
 
