@@ -500,7 +500,7 @@ button:hover,
   height: 40px;
   width: 120px;
   color: transparent;
-  background: url(./assets/ably.svg) no-repeat bottom right;
+  background: url(https://static.ably.dev/logo-h-mono-white.svg?depict-it) no-repeat bottom right;
   background-size: 100px;
 }
 
