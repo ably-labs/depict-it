@@ -1448,3 +1448,5 @@ We're hosting this project as an Azure Static Web App - and the deployment infor
 * [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview)
 * [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/)
 * [Progressive Web Apps](https://www.smashingmagazine.com/2016/08/a-beginners-guide-to-progressive-web-apps/)
+
+[![Ably logo](https://static.ably.dev/badge-black.svg?depict-it)](https://ably.com)
