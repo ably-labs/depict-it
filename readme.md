@@ -2,7 +2,7 @@
 
 Depict-It is a party game for 4 to 8 players (ideally!) where you mutate a phrase through drawings and captions, to make up funny scenarios with your friends.
 
-You can play Depict-It online here: [https://depictit.ably.dev](https://depictit.ably.dev)
+You can play Depict-It online at this url: [https://depictit.ably.dev](https://depictit.ably.dev)
 
 ## The rules of the game
 
