@@ -14,7 +14,6 @@ export const DepictItCards = [
     "Cookie monster",
     "Cold shower",
     "Lets go fly a kite",
-    "Worldwar II",
     "Mary Poppins",
     "Pint of beer",
     "That Friday feeling!",
